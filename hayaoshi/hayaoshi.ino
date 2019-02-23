@@ -1,10 +1,10 @@
 #include <Arduino.h>
 
 static const byte START_RY_PIN = 2;
-static const byte RY_PIN[] = {3, 4, 5, 6, 7, 8};
+static const byte RY_PIN[] = {3, 4, 5, 6, 7, 8, 9};
 
 static const byte START_SW_PIN = 10;
-static const byte SW_PIN[] = {11, 12, 13, 14, 15, 16};
+static const byte SW_PIN[] = {11, 12, 13, A0, A1, A2, A3};
 
 #define SW_NO   (sizeof(SW_PIN)/sizeof(SW_PIN[0]))
 #define RY_ON   LOW
@@ -16,7 +16,7 @@ static const byte SW_PIN[] = {11, 12, 13, 14, 15, 16};
 static void all_ry_off()
 {
   digitalWrite(START_RY_PIN, RY_OFF);
-  for (int i=0; i < SW_NO; i++) {
+  for (int i = 0; i < SW_NO; i++) {
     digitalWrite(RY_PIN[i], RY_OFF);
   }
 
@@ -28,12 +28,12 @@ void setup() {
   all_ry_off();
 
   pinMode(START_SW_PIN, INPUT);
-  for (int i=0; i < SW_NO; i++) {
+  for (int i = 0; i < SW_NO; i++) {
     pinMode(SW_PIN[i], INPUT);
   }
 
   pinMode(START_RY_PIN, OUTPUT);
-  for (int i=0; i < SW_NO; i++) {
+  for (int i = 0; i < SW_NO; i++) {
     pinMode(RY_PIN[i], INPUT);
   }
 }
@@ -52,7 +52,7 @@ void loop() {
   Serial.println("2");
   while (true) {
     byte hayaoshi = 0xff;
-    for (int i=0; i < SW_NO; i++) {
+    for (int i = 0; i < SW_NO; i++) {
       bool sw = digitalRead(SW_PIN[i]);
       Serial.print("SW ");
       Serial.print(i);
@@ -83,5 +83,5 @@ void loop() {
 
   all_ry_off(); //全リレーオフ
 
-//  delay(5000);
+  //  delay(5000);
 }
